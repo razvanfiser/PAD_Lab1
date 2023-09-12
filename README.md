@@ -26,3 +26,81 @@ For this project the technology stack will be divided as follows:
 * <b>Python's Flask Framework </b> - Python and Flask will be used for handling the downloading/uploading of the books, since Python has a number of libraries which can handle/manipulate PDFs, which could potentially prove useful. For this a <b>RESTful API</b> will be adopted.
 
 ## 4. Data Management
+### 4.1. Databases
+As seen in the System Architecture Diagram, the Account Service will store all of its data related to the users into the Account Database. The Search- and Download/Upload Services will communicate with the Book Database. All communication with the databases will be done through RESTful APIs.
+### 4.2. Endpoins
+#### Account Service
+```json
+POST /signup/
+    data = {
+        "username": "{username}",
+        "password": "{password}",
+        "email": "{email}"
+    }
+
+    RESPONSE:
+        {
+            "status": 200
+        }
+
+POST /login/
+    data = {
+        "username": "{username}",
+        "password": "{password}"
+    }
+
+    RESPONSE:
+        {
+            "Authorization": "{session_id}"
+        }
+
+DELETE /deleteacc/
+    headers = {"Authorization": "{session_id}"}
+    data = {
+        "username": "{username}",
+        "password": "{password}"
+    }
+
+    RESPONSE:
+    {
+        "status": 200
+    }
+
+```
+
+#### Search Service
+```json
+GET /author/
+
+GET /book/
+
+```
+
+#### Upload/Download Service
+```json
+GET /download/{book_id}/
+    headers = {"Authorization": "{session_id}"}
+
+    RESPONSE:
+        {
+            "name": "Russia's Catacomb Saints",
+            "author": "St. Herman of Alaska Brotherhood",
+            "category": "religion",
+            "url": "download url"
+        }
+
+POST /upload/
+    headers = {"Authorization": "{session_id}"}
+    data = {
+        "name": "{name}",
+        "author": "{author}",
+        "category": "{category}",
+        "tags": []
+        "url": "download url"
+    }
+
+    RESPONSE:
+        {
+            "status": 201
+        }
+```
