@@ -70,10 +70,70 @@ DELETE /deleteacc/
 
 #### Search Service
 ```json
-GET /author/
+GET /author/{authors_name}
+    headers = {"Authorization": "{session_id}"}
 
-GET /book/
+    RESPONSE:
+        {
+            "{author_id}":
+            {   
+            "book_id" : {*a JSON containing name, author, category and url*},
+            "book_id" : {*a JSON containing name, author, category and url*},
+            ...
+            }
+        }
 
+GET /autor/id/{author_id}
+    headers = {"Authorization": "{session_id}"}
+
+    RESPONSE:
+        {
+            "{author_id}":
+            {   
+            "{book_id}" : {*a JSON containing name, author, category and cover image*},
+            "{book_id}" : {*a JSON containing name, author, category and cover image*},
+            ...
+            }
+        }
+
+GET /author/authors_id/{author name}
+    headers = {"Authorization": "{session_id}"}
+
+    RESPONSE:
+        {"author_id": "{author_id}"}
+
+
+GET /book/{book_title}
+    headers = {"Authorization": "{session_id}"}
+
+    RESPONSE:
+        {
+            "title": "Russia's Catacomb Saints",
+            "author": "St. Herman of Alaska Brotherhood",
+            "category": "religion",
+            "cover_image": "{url_to_image}"
+        }
+
+GET /book/id/{book_id}
+    headers = {"Authorization": "{session_id}"}
+
+    RESPONSE:
+        {
+            "title": "Russia's Catacomb Saints",
+            "author": "St. Herman of Alaska Brotherhood",
+            "category": "religion",
+            "cover_image": "{url_to_image}"
+        }
+
+GET /book/books_id/{book_name}
+    headers = {"Authorization": "{session_id}"}
+
+    RESPONSE:
+        {
+            "book_id": "{book_id}"
+        }
+
+    
 ```
 
 #### Upload/Download Service
@@ -83,7 +143,7 @@ GET /download/{book_id}/
 
     RESPONSE:
         {
-            "name": "Russia's Catacomb Saints",
+            "title": "Russia's Catacomb Saints",
             "author": "St. Herman of Alaska Brotherhood",
             "category": "religion",
             "url": "download url"
@@ -104,3 +164,9 @@ POST /upload/
             "status": 201
         }
 ```
+
+## 5. Deployment and Scaling
+
+<b>Docker</b> and <b>Kubernetes</b> are an ideal fit for our microservices-based application. <b>Docker</b> simplifies the process of packaging each microservice and its dependencies into lightweight, portable containers, ensuring consistent and reliable deployments across various environments. This containerization enables easy scaling and efficient resource utilization.
+
+<b>Kubernetes</b>, on the other hand, takes care of orchestrating these containers, automating tasks like load balancing, self-healing, and rolling updates. With Docker and Kubernetes, our application can effortlessly handle the complexities of a distributed system, providing high availability and scalability while maintaining the agility needed for managing a vast library of public domain books.
